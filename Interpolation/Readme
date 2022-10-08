@@ -1,0 +1,1 @@
+插值法适用于数据较少，不然数据太大，可能数据溢出。数据区间外一般不准。newton_chazhi在次数比较大时比NewtonInterpolation更难溢出。
