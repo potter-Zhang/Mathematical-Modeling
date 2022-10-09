@@ -1,2 +1,3 @@
 我们写的牛顿和拉格朗日插值法适用于数据较少，不然数据太大，可能数据溢出。数据区间外一般不准。newton_chazhi在次数比较大时比NewtonInterpolation更难溢出。
-建议使用matlab自带的inerpo1，则没有以上限制。
+建议使用matlab自带的interp1，则没有以上限制。'pchip'=三次hermite插值, 'spline'=三次样条插值
+
