@@ -1,1 +1,5 @@
 使用matlab自带的regress函数。要 求常数项时，记得向x矩阵添加常数1的（列）向量。
+多项式拟合的使用方法：使用polyfit和polyval函数，形如：
+    p=polyfit(x,y,3);
+    y1=polyval(p,x);
+    plot(x,y,"r*",x,y1,"b-")
