@@ -1,0 +1,42 @@
+%导言区
+\documentclass{ctexart}%book,report,letter
+%\usepackage{ctex}
+\usepackage{amsmath}
+\usepackage{graphicx}
+%\graphicspath{{QuestionI.png}}
+\newcommand\degree{^\circ}
+\newcommand{\myfont}{\textit{\textbf{\textsf{Fancy Text}}}}
+\title{\kaishu 牛顿插值}
+\author{Shirley}
+\date{\today}
+
+%正文区
+\begin{document}
+	三次Hermite插值
+	
+	\begin{equation}
+		v_{ij}=\frac{max\left \{{x_{1j},x_{2j},\cdots ,x_{nj}}  \right \}-x_{ij} }{max\left \{{x_{1j},x_{2j},\cdots ,x_{nj}}  \right \}-min\left \{{x_{1j},x_{2j},\cdots ,x_{nj}}  \right \}} 
+	\end{equation}
+	\begin{equation}
+		v_{ij}=\frac{x_{ij}-min\left \{{x_{1j},x_{2j},\cdots ,x_{nj}}  \right \}}{max\left \{{x_{1j},x_{2j},\cdots ,x_{nj}}  \right \}-min\left \{{x_{1j},x_{2j},\cdots ,x_{nj}}  \right \}} 
+	\end{equation}
+	\begin{equation}
+		P_{ij}=\frac{v_{ij}}{\sum_{i=1}^{m}v_{ij} } (0\le v_{ij} \le 1,0\le p_{ij} \le 1)
+	\end{equation}
+	\begin{equation}
+		\begin{aligned}
+			e_{j}=-\frac{1}{\ln_{}{m}}\sum_{i=1}^{m}p_{ij}\ln_{}{(p_{ij})} 
+		\end{aligned}
+	\end{equation}
+	\begin{equation}
+		d_{j}=1-e_{j}   
+	\end{equation}
+
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[height=0.3\textheight]{QuestionI}
+		\caption{QuestionⅠ}
+	\end{figure}
+	
+\end{document}
