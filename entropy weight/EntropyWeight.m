@@ -5,18 +5,8 @@ function [w,s] = EntropyWeight(X,label)
 %w为每个指标的权重，s为各样本综合得分
 %   此处显示详细说明
 xx=X;%保留原来的X，使得s使用原来的X进行计算，而不是标准化后的
-[m,n]=size(X);
-%标准化
-for i=1:n
-    xi=X(:,i);
-    if(max(xi)~=min(xi))
-        if(label(i))
-            X(:,i)=(xi-min(xi))/(max(xi)-min(xi));
-        else
-            X(:,i)=(max(xi)-xi)/(max(xi)-min(xi)); 
-        end
-    end
-end
+
+X = Normalization(X, label);
 
 p=X./(sum(X,1));
 e=-1/log(m)*sum(p.*ln(p));
