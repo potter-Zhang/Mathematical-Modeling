@@ -25,7 +25,7 @@ r = x.* w;
 
 % 计算正理想解和负理想解
 Sdp = max(r);
-Sdn = zeros(1, n);% 标准化过程中一定会有0产生，所以用zeros替换了min(r);（如果出问题，改回来）
+Sdn = min(r);
 
 % 计算每个样本和正负理想解的欧式距离
 Edp = sqrt(sum((r - Sdp).^2, 2));
