@@ -1,0 +1,28 @@
+%导言区
+\documentclass{ctexart}%book,report,letter
+%\usepackage{ctex}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{makecell} %实现表格内换行
+%\graphicspath{{QuestionI.png}}
+\newcommand\degree{^\circ}
+\newcommand{\myfont}{\textit{\textbf{\textsf{Fancy Text}}}}
+\title{\kaishu 牛顿插值}
+\author{Shirley}
+\date{\today}
+
+%正文区
+\begin{document}
+	%tabular环境创建一个图表，后面的{c c c}指定有三列，且全都居中对齐，l为左对齐，r为右对齐
+	\begin{tabular}{c c c}
+		\hline
+		Symbol & Description & Unit\\
+		\hline
+		$V_{ij}$ & Normalized standard matrix & / \\
+		$P_{ij}$ & \makecell[c]{Under the index i,the characteristic \\ propotion of the j-th evaluation object} & \%  \\ %在%前加\即可正常打印
+		$e_{i}$ & Entropy weight of the index j & / \\
+		$d_{j}$ & The coefficient of variance for the index j & \% \\ 
+		\hline
+	\end{tabular}
+	
+\end{document}
