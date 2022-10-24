@@ -1,0 +1,52 @@
+%导言区
+\documentclass{article}%book,report,letter
+\usepackage{url}
+%\usepackage{ctex}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{makecell} %实现表格内换行
+\usepackage{underlin}
+%\graphicspath{{QuestionI.png}}
+\newcommand\degree{^\circ}
+\newcommand{\myfont}{\textit{\textbf{\textsf{Fancy Text}}}}
+\title{\kaishu 牛顿插值}
+\author{Shirley}
+\date{\today}
+
+%正文区
+\begin{document}
+	Team \#apmcm2112772
+	
+	
+	5.3.2(9)
+	\begin{equation}
+		R=(r_{ij})_{m\times n}: \; r_{ij}=w_{j}\cdot w_{ij}(i=1,2,\cdots ,m;j=1,2,\cdots ,n)
+	\end{equation}
+	5.3.2(10)
+	\begin{equation}
+		S_{j}^{+}=\left\{\begin{array}{l}
+			\underset{1\le i\le m}{max\{r_{i j}\}} ，j=1,2, \cdots, n;  D_{j} \text { is the benefit indicator } \\
+			\underset{1\le i\le m}{min\{r_{i j}\}}, j=1,2, \cdots, n;  D_{j} \text { is the cost indicator }
+		\end{array}\right.
+	\end{equation}
+	5.3.2(11)
+	\begin{equation}
+		S_{j}^{-}=\left\{\begin{array}{l}
+			\underset{1\le i\le m}{min\{r_{i j}\}} ，j=1,2, \cdots, n;  D_{j} \text { is the benefit indicator } \\
+			\underset{1\le i\le m}{max\{r_{i j}\}}, j=1,2, \cdots, n;  D_{j} \text { is the cost indicator }
+		\end{array}\right.
+	\end{equation}
+	5.3.2(12)
+	\begin{equation}
+		\left\{\begin{matrix} 
+			Sd_{i}^{+}=\sqrt{\sum_{j=1}^{n}(S_{j}^{+}-r_{ij})^{2}},i=1,2,\cdots ,m \\  
+			Sd_{i}^{-}=\sqrt{\sum_{j=1}^{n}(S_{j}^{-}-r_{ij})^{2}},i=1,2,\cdots ,m 
+		\end{matrix}\right. 
+	\end{equation}
+	5.3.2(13)
+	\begin{equation}
+		\eta _{i}=\frac{Sd_{i}^{-}}{Sd_{i}^{+}+Sd_{i}^{-}} ,i=1,2,\cdots ,m
+	\end{equation}
+
+
+\end{document}
