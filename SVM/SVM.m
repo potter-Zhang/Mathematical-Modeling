@@ -23,22 +23,22 @@ end
 y = reshape(y, 1, m);
 f = -ones(m, 1);
 H = a;
-
-lamda = quadprog(H, f, [], [], y, 0, zeros(m, 1), c * ones(m, 1));
+temp=[c*ones(m,1),Inf(m,1)];%用于下一行的三目运算
+lambda = quadprog(H, f, [], [], y, 0, zeros(m, 1), temp(:,(c==0)+1));
 
 % lamda处理
 epsilon = 1e-8;
 for i = 1 : m
-    if abs(lamda(i)) < epsilon
-        lamda(i) = 0;
+    if abs(lambda(i)) < epsilon
+        lambda(i) = 0;
     end
 end
 
-% 利用lamda求解w
+% 利用lambda求解w
 w = zeros(1, n);
 
 for i = 1 : m
-    w = w + y(i) * lamda(i) * x(i, :);
+    w = w + y(i) * lambda(i) * x(i, :);
 end
 
 % 求出wxtp
@@ -46,7 +46,7 @@ end
 wxtp = zeros(1, mm);
 for j = 1 : mm
     for i = 1 : m
-        wxtp(j) = wxtp(j) + lamda(i) * y(i) * Kernel(x(i, :), xtp(j, :), method, cof);
+        wxtp(j) = wxtp(j) + lambda(i) * y(i) * Kernel(x(i, :), xtp(j, :), method, cof);
     end
 end
 
@@ -58,9 +58,9 @@ w = w';
 
 u = 0;
 for i = 1 : m
-    if lamda(i) ~= 0
+    if lambda(i) ~= 0
         for j = 1 : m
-            u = u + lamda(j) * y(j) * Kernel(x(i, :), x(j, :), method, cof);
+            u = u + lambda(j) * y(j) * Kernel(x(i, :), x(j, :), method, cof);
         end
         b = y(i) - u;
         break;
