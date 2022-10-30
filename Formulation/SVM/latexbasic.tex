@@ -1,0 +1,75 @@
+%导言区
+\documentclass{article}%book,report,letter
+\usepackage{url}
+\usepackage{ctex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{makecell} %实现表格内换行
+\usepackage{underlin}
+%\graphicspath{{QuestionI.png}}
+\newcommand\degree{^\circ}
+\newcommand{\myfont}{\textit{\textbf{\textsf{Fancy Text}}}}
+\title{\kaishu 牛顿插值}
+\author{Shirley}
+\date{\today}
+
+%正文区
+\begin{document}
+	决策边界：
+	$$w^{T}X_{i}+b > 0,y_{i} > 0$$
+	$$w^{T}X_{i}+b < 0,y_{i} < 0$$
+	$$max margin(x,b)\qquad s.t.y_{i}(w^{T}+b) > 0$$
+	$$margin(w,b)=min \, distance(w,b,x_{i})=min\frac{1}{\left | w \right | } \left | w^{T}x_{i}+b \right | $$
+	损失函数：
+	$$1-y_{i}(W^{T}x_{i}+b)\leqslant 0,loss=0$$
+	$$1-y_{\bar{2} }(w^{T}x_{i}+b)>0,\quad loss=1-y_{i}(w^{T}x_{i}+b)$$
+	问题可以表示为：
+	$$min\sum_{i}^{N}(1-y_{i}(x^{T}x_{i}+b))_{+}+\lambda  \left \| w \right \| ^{2}$$
+	
+	令$\xi_{i}=1-y_{i}(w^{T}x_{i}+b),\xi_{i}\geqslant0$，分为两种情况：
+	$$1\text{、}1-y_{i}(w^{T}x_{i}+b)>0 \Rightarrow \xi _{i}=1-y_{i}(w^{T}x_{i}+b) \Rightarrow y_{i}(wx+b)=1-\xi_{i} $$
+	$$2\text{、}1-y_{i}(w^{T}x_{i}+b)\leqslant 0 \Rightarrow y_{i}(wx+b)\leqslant 1 \Rightarrow y_{i}(wx+b)\leqslant 1-\xi_{i}(\xi _{i}=0) $$
+	综合上述两种情况，可直接写为$y_{i}(wx+b)\leqslant 1-\xi_{i}$
+	则最优化函数可化为：
+	$$min\frac{1}{2}w^{T}w+C\sum_{i=1}^{N}\xi_{i}  $$
+	$$s.t.y_{i}(w^{T}x_{i}+b)\geqslant1-\xi_{i},\xi_{i}\geqslant0$$
+	对偶函数等价为：
+	$$\underset{min}{\alpha}\frac{1}{2} \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_{i}\alpha_{j}y_{i}y_{j}(x_{i}x_{j})-\sum_{i=1}^{n}\alpha_{i}$$
+	$$s.t.\sum_{i=1}^{N}\alpha_{i}y_{i}=0$$
+	$$0\leqslant \alpha_{i} \leqslant C,i=1,2,\cdots N$$
+	对偶函数的解为：
+	$$w=\sum_{i=1}^{N}\alpha_{i}y_{i}x_{i}$$
+	$$b=y_{j}-\sum_{i=1}^{N}\alpha_{i}y_{i}(x_{i}\cdot x_{j})$$
+	决策函数为：
+	$$f(x)=\text{sign}(\sum_{1}^{N}\alpha_{i}y_{i}(x\cdot x_{i})+b^{*})$$
+	KKT条件为：
+	$$\frac{\mathrm{d}f}{\mathrm{d}x}=0,\frac{\mathrm{d}f}{\mathrm{d}b}=0,\frac{\mathrm{d}f}{\mathrm{d}\lambda }=0$$
+	$$\lambda _{i}(1-y_{i}(w^{T}x_{i}+b))=0$$
+	核函数可以对特征进行升维，由于高维空间运算量太大，因而使用低维的计算结果作为两个高维向量的内积：
+	\begin{flalign*} %若去掉*，则公式后面有编号
+		\phi (x_{1},x_{2})*\phi (x_{1}',x_{2}') & =(z_{1},z_{2},z_{3})*(z_{1}',z_{2}',z_{3}') \\
+		&=(x_{1}^{2},\sqrt{2} x_{1}x_{2},x_{2}^{2})(x_{1}'^{2},\sqrt{2}x_{1}'x_{2}',x_{2}'^{2}) \\
+		&=(x_{1}x_{1}'+x_{2}x_{2}')=(xx')^{2}=K(x,x')
+	\end{flalign*}
+	核函数等价于两个映射哈函数的内积，不过，这个映射函数不需要手动指出。因为当两个映射函数相乘时，内积的结果可以用核函数表示。而映射函数在最优化问题中都是成对出现的。即出现映射函数的地方都可以用核函数替代。
+	如果用映射函数将x映射到高维空间，那么应该用高维向量替换x所在的位置：
+	$$\frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_{i}\alpha_{j}y_{i}y_{j}(x_{i}x_{j})-\sum_{i=1}^{n}\alpha_{i} $$
+	$$\frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_{i}\alpha_{j}y_{i}y_{j}(\phi(x_{i})\phi(x_{j}))-\sum_{i=1}^{n}\alpha_{i} $$
+	$$\frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_{i}\alpha_{j}y_{i}y_{j}(K(x_{i}x_{j}))-\sum_{i=1}^{n}\alpha_{i} $$
+	那么最终拟合的结果由高维向量表示为：
+	$$f(x)=\text{sign}(\sum_{1}^{N}\alpha_{i}y_{i}(\phi(x)\phi(x_{i})+b^{*})$$
+	$$f(x)=\text{sign}(\sum_{1}^{N}\alpha_{i}y_{i}(K(x,x_{i})+b^{*})$$
+	高斯核函数（RBF）\\
+	正太分布：
+	$$f(x)=\frac{1}{\sqrt{2\pi}\delta} \text{exp}(-\frac{(x-\mu)^{2}}{2\delta^{2}} ) $$
+	高斯分布：
+	$$K(x,y)=e^{-\gamma \left \| x-y \right \|^{2} }$$
+	
+	$$L(w,b,\xi, \alpha, \mu)\equiv \frac{1}{2} \left \| w \right \| ^{2}+C\sum_{i=1}^{n}\xi _{i}-\sum_{i=1}^{n} \alpha _{i}(y_{i}(w\cdot x_{i}+b)-1+\xi _{i})-\sum_{i=1}^{n}\mu _{i}\xi _{i}
+	$$
+	$$w=\sum_{i=1}^{n}\alpha _{i}y_{i}\phi (x_{n}) $$
+	
+
+
+\end{document}
