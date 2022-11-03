@@ -1,4 +1,5 @@
-使用matlab自带的regress函数。要 求常数项时，记得向x矩阵添加常数1的（列）向量。
+可以使用matlab自带的regress函数。要 求常数项时，记得向x矩阵添加常数1的（列）向量。
+当然，我们自己也写了一个，附带ftest,ptest的参数、指标。
 多项式拟合的使用方法：使用polyfit和polyval函数，形如：
     p=polyfit(x,y,3);//也可以用[p,S,mu] = polyfit(x,y,n)，其中S的normr字段为l2范数，越小越好。
     y1=polyval(p,x);
