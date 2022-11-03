@@ -5,5 +5,3 @@
     y1=polyval(p,x);
     plot(x,y,"r*",x,y1,"b-")
 
-
-
