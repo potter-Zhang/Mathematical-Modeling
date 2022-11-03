@@ -4,3 +4,6 @@
     p=polyfit(x,y,3);//也可以用[p,S,mu] = polyfit(x,y,n)，其中S的normr字段为l2范数，越小越好。
     y1=polyval(p,x);
     plot(x,y,"r*",x,y1,"b-")
+
+
+
