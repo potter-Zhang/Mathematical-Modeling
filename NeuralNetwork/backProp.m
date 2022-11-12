@@ -19,7 +19,7 @@ newTriangle = containers.Map('KeyType', 'int32', 'ValueType', 'any');
 
 
 count = thetaVec.Count;
-delta(count + 1) = y - a(count + 1);
+delta(count + 1) = a(count + 1)-y;
 
 for i = count : -1 : 2
     temp=thetaVec(i);
