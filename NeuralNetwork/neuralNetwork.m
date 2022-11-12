@@ -4,9 +4,8 @@ function [thetaVec] = neuralNetwork(layer, x, y, count, alpha, lambda, fun, fund
 % alpha是学习率
 % 参数详见具体调用函数
 
+y=reshape(y,length(y),1);
 [m, ~] = size(x);
-
-ytp = zeros(size(y));
 
 % 随机初始化thetaVec
 [thetaVec, triangle] = randomInit(layer, epsilon);
@@ -21,8 +20,6 @@ for j = 1 : count
     end
     D = calGrad(triangle, thetaVec, m, lambda);
     gradVec = gradApprox(@costFunction, thetaVec, y, ytp, lambda);
-    checkGrad(D, gradVec);
-    thetaVec = gradDesc(thetaVec, D, alpha);
     triangle = tmp;
 end
 
