@@ -25,5 +25,6 @@ for i = 1 : thetaVec.Count
     x = fun(thetaVec(i) * x);
     z(i + 1) = x;
     a(i + 1) = fun(x);
+    x=fun(x);
 end
 end
