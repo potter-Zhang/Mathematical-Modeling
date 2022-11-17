@@ -1,3 +1,15 @@
+function [thetaVec] = neuralNetwork(layer, x, y, count, alpha, lambda, fun, funder, epsilon)
+% 神经网络
+% count是训练次数
+% alpha是学习率
+% 参数详见具体调用函数
+
+%y=sigmoid(y);
+y=reshape(y,length(y),1);
+[m, ~] = size(x);
+
+%ytp = zeros(size(y));
+
 % 随机初始化thetaVec
 [thetaVec, triangle] = randomInit(layer, epsilon);
 tmp = triangle;
