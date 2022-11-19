@@ -8,7 +8,7 @@ function [thetaVec] = TNN(x,y,num,count,alpha,theta)
 x=x';
 y=y';
 x=2*(x-min(x))./(max(x)-min(x))-ones(size(x));
-y=2*(y-min(y))./(max(y)-min(y))-ones(size(x));
+y=2*(y-min(y))./(max(y)-min(y))-ones(size(y));
 
 %初始化thetaVec
 if(nargin==6)
