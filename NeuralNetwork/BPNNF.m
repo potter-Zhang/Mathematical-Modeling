@@ -29,8 +29,11 @@ for i = 1 : layer.num - 1
     biasGrad(i) = zeros(size(biasVec(i)));
 end
 
+% number of samples
+Q = size(x, 2);
+
 for iteration = 1 : count
-    
+
 % forward
 a(1) = x;
 for i = 1 : layer.num - 1
@@ -55,8 +58,8 @@ for i = 1 : size(x, 2)
         tmpz = z(j + 1);
         fDer = g(tmpa(:, i), tmpz(:, i));
         tmpa = a(j);
-        thetaGrad(j) = thetaGrad(j) + (cost .* fDer) * tmpa(:, i)';
-        biasGrad(j) = biasGrad(j) + (cost .* fDer);
+        thetaGrad(j) = thetaGrad(j) + (cost .* fDer) * tmpa(:, i)' / Q;
+        biasGrad(j) = biasGrad(j) + (cost .* fDer) / Q;
         cost =  thetaVec(j)' * cost .* fDer;
     end
 end
