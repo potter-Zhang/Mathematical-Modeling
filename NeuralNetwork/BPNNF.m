@@ -60,7 +60,7 @@ for i = 1 : size(x, 2)
         tmpa = a(j);
         thetaGrad(j) = thetaGrad(j) + (cost .* fDer) * tmpa(:, i)' / Q;
         biasGrad(j) = biasGrad(j) + (cost .* fDer) / Q;
-        cost =  thetaVec(j)' * cost .* fDer;
+        cost =  thetaVec(j)' * (cost .* fDer);
     end
 end
 
