@@ -83,9 +83,9 @@ for iteration = 1 : count
 x = originalX(:, seq);
 y = originalY(:, seq);
 Q = size(x, 2);
-if (mod(iteration, 10) == 0)
+%if (mod(iteration, 10) == 0)
 seq = mod(seq + length(seq) - 1, volume) + 1;
-end
+%end
 
 
 % forward
@@ -111,28 +111,24 @@ disp("准确率为："+test(afinal, y, 0));
 %hold on;
 
 % bcak propagation
-for i = 1 : size(x, 2)
-    cost = (-y(:, i) + afinal(:, i));%afinal(:, i) - y(:, i) ;
-    for j = layer.num - 1 : -1 : 1
-        tmpa = a(j + 1);
-        tmpz = z(j + 1);
-        fDer = g(tmpa(:, i), tmpz(:, i));      
-        tmpa = a(j);
-        if j == layer.num - 1
-            thetaGrad(j) = thetaGrad(j) + cost * tmpa(:, i)' / Q;
-            biasGrad(j) = biasGrad(j) + cost / Q;       
-        else
-            thetaGrad(j) = thetaGrad(j) + (cost .* fDer) * tmpa(:, i)' / Q;
-            biasGrad(j) = biasGrad(j) + (cost .* fDer) / Q;
-        end
-        if j == layer.num - 1
-            cost =  thetaVec(j)' * cost;
-        else
-            cost =  thetaVec(j)' * (cost .* fDer);
-        end
-        
+cost = -y + afinal;%afinal(:, i) - y(:, i) ;
+for j = layer.num - 1 : -1 : 1
+    fDer = g(a(j + 1), z(j + 1));      
+    
+    if j == layer.num - 1
+        thetaGrad(j) = thetaGrad(j) + cost * a(j)' / Q;
+        biasGrad(j) = biasGrad(j) + cost * ones(Q, 1) / Q;       
+    else
+        thetaGrad(j) = thetaGrad(j) + (cost .* fDer) * a(j)' / Q;
+        biasGrad(j) = biasGrad(j) + (cost .* fDer) * ones(Q, 1) / Q;
+    end
+    if j == layer.num - 1
+        cost =  thetaVec(j)' * cost;
+    else
+        cost =  thetaVec(j)' * (cost .* fDer);
     end
 end
+
 
 % gradient descent
 for i = 1 : layer.num - 1
